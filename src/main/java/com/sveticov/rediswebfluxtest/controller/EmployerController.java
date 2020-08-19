@@ -40,7 +40,7 @@ public class EmployerController {
         log.info(employer.toString());
         employerOps.opsForValue().set(employer.getIdEmployer(),employer)
                .then(employerOps.opsForValue().get(employer.getIdEmployer()))
-                .subscribe(System.out::println);
+                .subscribe(System.out::println); //answer
 //                .thenMany(employerOps.keys("*")
 //                .flatMap(employerOps.opsForValue()::get))
 //                .subscribe(System.out::println);
