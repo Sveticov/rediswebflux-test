@@ -22,8 +22,10 @@ public class EmployerLoader {
     @PostConstruct
     public void loadData(){
         factory.getReactiveConnection().serverCommands().flushAll().thenMany(
-                Flux.just("Nativ","Joker","Flash")
-                .map(name->new Employer(UUID.randomUUID().toString(),name))
+                Flux.just(new Employer("1","Beer",10),
+                        new Employer("1","Joker",12),
+                        new Employer("1","Flash",17))
+                .map(employer->new Employer(UUID.randomUUID().toString(),employer.getNameEmployer(),employer.getAgeEmployer()))
                 .flatMap(employer->employerOps.opsForValue().set(employer.getIdEmployer(),
                         employer)))
                 .thenMany(employerOps.keys("*")
