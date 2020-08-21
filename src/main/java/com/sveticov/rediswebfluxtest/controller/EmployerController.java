@@ -11,7 +11,7 @@ import reactor.core.publisher.Mono;
 import java.util.UUID;
 
 import static io.lettuce.core.pubsub.PubSubOutput.Type.subscribe;
-
+@CrossOrigin("http://localhost:4200")
 @RestController
 @Slf4j
 public class EmployerController {

@@ -1,6 +1,7 @@
 package com.sveticov.rediswebfluxtest.component;
 
 import com.sveticov.rediswebfluxtest.model.Employer;
+import com.sveticov.rediswebfluxtest.model.Status;
 import org.springframework.data.redis.connection.ReactiveRedisConnectionFactory;
 import org.springframework.data.redis.core.ReactiveRedisOperations;
 import org.springframework.stereotype.Component;
@@ -22,10 +23,10 @@ public class EmployerLoader {
     @PostConstruct
     public void loadData(){
         factory.getReactiveConnection().serverCommands().flushAll().thenMany(
-                Flux.just(new Employer("1","Beer",10),
-                        new Employer("1","Joker",12),
-                        new Employer("1","Flash",17))
-                .map(employer->new Employer(UUID.randomUUID().toString(),employer.getNameEmployer(),employer.getAgeEmployer()))
+                Flux.just(new Employer("1","Beer",10, Status.Start),
+                        new Employer("1","Joker",12,Status.Depart),
+                        new Employer("1","Flash",17,Status.Wait))
+                .map(employer->new Employer(UUID.randomUUID().toString(),employer.getNameEmployer(),employer.getAgeEmployer(),employer.getStatusEmployer()))
                 .flatMap(employer->employerOps.opsForValue().set(employer.getIdEmployer(),
                         employer)))
                 .thenMany(employerOps.keys("*")

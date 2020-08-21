@@ -11,4 +11,5 @@ public class Employer {
     private String idEmployer;
     private String nameEmployer;
     private int ageEmployer;
+    private Status statusEmployer;
 }
